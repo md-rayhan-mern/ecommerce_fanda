@@ -1,20 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import API from "../../services/Api";
+import AuthService from "../../services/AuthService";
 import { toast } from "react-hot-toast";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await API.post(
-        import.meta.env.VITE_USER_API_URL_LOGIN,
-        userData,
-      );
-      if (response.data?.success) {
+      const response = await AuthService.login(userData);
+      if (response?.success) {
         localStorage.setItem("user", JSON.stringify(response.data));
         toast.success("Login successful!");
       }
-      return response.data;
+      return response;
     } catch (error) {
       const errorMessage = error.response?.data?.message;
       toast.error(errorMessage || "Login failed. Please try again.");
@@ -28,15 +25,12 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await API.post(
-        import.meta.env.VITE_USER_API_URL_REGISTER,
-        userData,
-      );
-      if (response.data?.success) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+      const response = await AuthService.register(userData);
+      if (response?.success) {
+        localStorage.setItem("user", JSON.stringify(response));
         toast.success("Registration successful!");
       }
-      return response.data;
+      return response;
     } catch (error) {
       const errorMessage = error.response?.data?.message;
       toast.error(errorMessage || "Registration failed. Please try again.");
@@ -74,17 +68,15 @@ const authSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.isLogIn = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload;
+        state.user = action.payload?.message;
         state.isLogIn = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
-        state.isLogIn = false;
+        state.error = action.payload?.message;
       })
       //   REGESTER USER
       .addCase(registerUser.pending, (state) => {
@@ -94,13 +86,13 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload;
+        state.user = action.payload?.message;
         state.isLogIn = true;
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = action.payload?.message;
       });
   },
 });

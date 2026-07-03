@@ -20,7 +20,7 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => response, //success //message //token //user{} or //data{}
   (error) => {
     if (error.response && error.response.status === 401) {
       console.error("Unauthorized! Logging out...");
