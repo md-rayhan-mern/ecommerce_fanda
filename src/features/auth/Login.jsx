@@ -1,24 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "./authSlice";
-import { useNavigate, Link } from "react-router"; // React Router v7 স্ট্যান্ডার্ড
+import { Link } from "react-router"; // React Router v7 স্ট্যান্ডার্ড
 import { LogIn, Loader2 } from "lucide-react"; // Lucide আইকন
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // রেডাক্স স্টেট থেকে প্রয়োজনীয় ডাটা নেওয়া
-  const { isLoading, 相关, isLogIn } = useSelector((state) => state.auth);
+  const { isLoading, user } = useSelector((state) => state.auth);
 
   // ইউজার অলরেডি লগইন থাকলে তাকে সরাসরি হোমপেজে পাঠিয়ে দাও (নিরাপত্তা)
-  useEffect(() => {
-    if (isLogIn) {
-      navigate("/");
-    }
-  }, [isLogIn, navigate]);
 
   // ইনপুট চেঞ্জ হ্যান্ডলার
   const handleChange = (e) => {
@@ -33,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 font-sans">
+    <div className="min-h-screen  bg-gray-100 flex flex-col items-center justify-center p-4 font-sans">
       {/* অ্যামাজন লোগো সিমুলেশন */}
       <div className="mb-6 flex flex-col items-center cursor-pointer text-[#131921]">
         <span className="text-3xl font-black tracking-tight leading-none">
