@@ -40,7 +40,7 @@ const sliderData = [
 
 export default function MainCarousel() {
   return (
-    <div className="w-full h-[400px] md:h-[600px] overflow-hidden bg-gray-100">
+    <div className="w-full h-[200px] md:h-[500px] overflow-hidden bg-gray-100">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect={"fade"}
