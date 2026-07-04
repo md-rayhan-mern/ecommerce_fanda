@@ -3,14 +3,6 @@ import { motion } from "framer-motion";
 // ১. লুসিড রিয়্যাক্ট আইকনগুলো ইম্পোর্ট করা হলো
 import { Heart, ShoppingBag, ArrowRight } from "lucide-react";
 
-// const product = {
-//   id: 1,
-//   name: "Gold Plated Bangles 2 pics set (bala) - Golden",
-//   image: "https://ibb.co", // আপনার ইমেজ সোর্স লিংক
-//   price: 229,
-//   oldPrice: 655,
-//   discount: 65,
-// };
 
 const ProductCard = ({product}) => {
   return (
@@ -66,7 +58,7 @@ const ProductCard = ({product}) => {
         {/* প্রাইস সেকশন */}
         <div className="flex items-center justify-between">
           <div className="flex items-baseline gap-1">
-            <span className="text-xl font-bold text-orange-600">
+            <span className="text-xl text-orange-600">
               ৳{product.price}
             </span>
             <span className="text-xs text-gray-400 line-through">
