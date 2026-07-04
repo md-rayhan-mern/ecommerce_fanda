@@ -3,28 +3,32 @@ import { motion } from "framer-motion";
 // ১. লুসিড রিয়্যাক্ট আইকনগুলো ইম্পোর্ট করা হলো
 import { Heart, ShoppingBag, ArrowRight } from "lucide-react";
 
-const product = {
-  id: 1,
-  title: "Gold Plated Bangles 2 pics set (bala) - Golden",
-  image: "https://ibb.co", // আপনার ইমেজ সোর্স লিংক
-  price: 229,
-  oldPrice: 655,
-  discount: 65,
-};
+// const product = {
+//   id: 1,
+//   name: "Gold Plated Bangles 2 pics set (bala) - Golden",
+//   image: "https://ibb.co", // আপনার ইমেজ সোর্স লিংক
+//   price: 229,
+//   oldPrice: 655,
+//   discount: 65,
+// };
 
-const ProductCard = () => {
+const ProductCard = ({product}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       whileHover={{ y: -6 }} // হোভার করলে কার্ডটি স্মুথলি ৬ পিক্সেল উপরে উঠবে
-      className="w-full max-w-[280px] bg-white shadow-sm hover:shadow-xl border border-gray-100 overflow-hidden cursor-pointer relative group transition-shadow duration-300"
+      className="w-full bg-white shadow-sm hover:shadow-xl border border-gray-100 overflow-hidden cursor-pointer relative group transition-shadow duration-300"
     >
       {/* 🏷️ ডিসকাউন্ট ব্যাজ */}
-      <span className="absolute top-3 left-3 z-10 bg-red-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+      {
+        product.discount !== "0" && product !== "0%" && (
+        <span className={`absolute top-3 left-3 z-10 bg-red-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm` }>
         -{product.discount}%
       </span>
+      )}
+      
 
       {/* 🤍 লুসিড হার্ট (উইশলিস্ট) বাটন */}
       <button className="absolute top-3 right-3 z-10 p-2 bg-white/90 hover:bg-white text-gray-500 hover:text-red-500 rounded-full transition-all duration-200 shadow-sm border border-gray-50 active:scale-90">
@@ -35,7 +39,7 @@ const ProductCard = () => {
       <div className="w-full aspect-square bg-gray-50/50 overflow-hidden relative flex items-center justify-center">
         <motion.img
           src={product.image}
-          alt={product.title}
+          alt={product.name}
           whileHover={{ scale: 1.04 }} // মাউস নিলে ছবির সাইজ প্রিমিয়াম লুক নিয়ে বড় হবে
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="w-4/5 h-4/5 object-contain mix-blend-multiply"
@@ -53,15 +57,15 @@ const ProductCard = () => {
       </div>
 
       {/* 📝 প্রোডাক্ট ডাটা সেকশন */}
-      <div className="p-4 space-y-3">
+      <div className="p-1 space-y-2">
         {/* প্রোডাক্ট টাইটেল (২ লাইনের বেশি হলে টেক্সট হাইড হয়ে ডট ডট আসবে) */}
         <h3 className="text-sm font-medium text-gray-700 line-clamp-2 min-h-[40px] leading-snug group-hover:text-amber-600 transition-colors">
-          {product.title}
+          {product.name}
         </h3>
 
         {/* প্রাইস সেকশন */}
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-baseline gap-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-baseline gap-1">
             <span className="text-xl font-bold text-orange-600">
               ৳{product.price}
             </span>
