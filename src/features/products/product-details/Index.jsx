@@ -1,4 +1,5 @@
 import React from "react";
+import ProductGallery from "./ProductGallery";
 
 
 export default function ProductDetailsPage() {
@@ -31,8 +32,8 @@ export default function ProductDetailsPage() {
           <div className="lg:col-span-4 w-full">
             {/* <ProductGallery images={productImages} /> */}
             <div className="aspect-square bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 text-sm text-gray-400">
-              [বাম পাশের মডিউল: Swiper.js প্রোডাক্ট ইমেজ গ্যালারি এখানে বসবে]
-              Swiper js
+          {/* ProductGallery */}
+              <ProductGallery/>
             </div>
           </div>
 
