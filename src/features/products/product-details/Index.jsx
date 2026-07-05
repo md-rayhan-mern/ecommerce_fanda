@@ -1,12 +1,14 @@
 import React from "react";
+import Breadcrumb from "./Breadcrumb";
 import ProductGallery from "./ProductGallery";
-
+import ProductMainInfo from "./ProductMainInfo";
+import DeliverySidebar from "./DeliverySidebar";
 
 export default function ProductDetailsPage() {
   // ডামি ডেটা (প্রোডাকশন লেভেলে এটি Redux State বা API Response থেকে আসবে)
   const productImages = [
-    "https://unsplash.com",
-    "https://unsplash.com",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTagCvUpd_cytRycylEvv_n8erw0lcfUO0i_sHBTYA0h9cR-qUqvjCMdq1P&s=10",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStNl_yiU82rYG8VpnK0dCm9GQ451xnO8aYrXlti8Jb2308oKFdDN3bmoqd&s=10",
   ];
 
   return (
@@ -17,9 +19,7 @@ export default function ProductDetailsPage() {
            ========================================================================= */}
         <div className="mb-4">
           {/* <Breadcrumb /> */}
-          <div className="text-xs text-gray-500 py-1">
-            TV, Audio / Video &gt; Audio &gt; Headphones &gt; Over-the-Ear Headphones
-          </div>
+          <Breadcrumb />
         </div>
 
         {/* =========================================================================
@@ -27,50 +27,41 @@ export default function ProductDetailsPage() {
               (মোবাইলে ১ কলাম, বড় স্ক্রিনে ১২ কলামের গ্রিড)
            ========================================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start bg-white p-4 rounded-xl shadow-sm">
-          
           {/* ⬅️ বামের কলাম (ডেস্কটপে ১২ ভাগের ৪ ভাগ জায়গা নিবে) */}
           <div className="lg:col-span-4 w-full">
             {/* <ProductGallery images={productImages} /> */}
             <div className="aspect-square bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 text-sm text-gray-400">
-          {/* ProductGallery */}
-              <ProductGallery/>
+              {/* ProductGallery */}
+              <ProductGallery />
             </div>
           </div>
 
           {/* 🔄 মাঝখানের কলাম (ডেস্কটপে ১২ ভাগের ৫ ভাগ জায়গা নিবে) */}
           <div className="lg:col-span-5 w-full flex flex-col gap-4 lg:px-2">
-            
             {/* প্রোডাক্ট মেইন ইনফো (টাইটেল, রেটিং, প্রাইস) */}
             {/* <ProductMainInfo /> */}
             <div className="border-b border-gray-100 pb-3">
-              <h1 className="text-xl font-medium text-gray-800">[মাঝের মডিউল পার্ট ১: প্রোডাক্ট টাইটেল, প্রাইস ও রেটিং এখানে বসবে]</h1>
+              <div className="bg-purple-50 p-4 rounded-lg text-sm text-purple-700 font-medium">
+                [মাঝের মডিউল পার্ট ২: বেগুনি রঙের ফ্ল্যাশ সেল কাউন্টডাউন টাইমার
+                ব্যানার এখানে বসবে] Flash sell
+              </div>
+              <ProductMainInfo />
             </div>
-
-            {/* ফ্ল্যাশ সেল কাউন্টডাউন ব্যানার */}
-            {/* <FlashSaleBanner /> */}
-            <div className="bg-purple-50 p-4 rounded-lg text-sm text-purple-700 font-medium">
-              [মাঝের মডিউল পার্ট ২: বেগুনি রঙের ফ্ল্যাশ সেল কাউন্টডাউন টাইমার ব্যানার এখানে বসবে]
-              Flash sell
-            </div>
-
           </div>
 
           {/* ➡️ ডানের কলাম: ডেলিভারি সাইডবার (ডেস্কটপে ১২ ভাগের ৩ ভাগ জায়গা নিবে) */}
           <div className="lg:col-span-3 w-full">
             {/* <DeliverySidebar /> */}
             <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 text-sm text-gray-500">
-              [ডান পাশের মডিউল: ডেলিভারি লোকেশন, শিপিং চার্জ ও ওয়ারেন্টি সাইডবার এখানে বসবে]
-              Dalibari section
+              <DeliverySidebar />
             </div>
           </div>
-
         </div>
 
         {/* =========================================================================
            ৩. নিচের অংশ: প্রোডাক্টের বিস্তারিত বিবরণ, রিভিউ এবং কিউ-অ্যান্ড-এ
            ========================================================================= */}
         <div className="w-full flex flex-col gap-4 mt-4">
-          
           {/* প্রোডাক্ট স্পেসিফিকেশন ও ডেসক্রিপশন */}
           {/* <ProductDescription /> */}
           <div>
