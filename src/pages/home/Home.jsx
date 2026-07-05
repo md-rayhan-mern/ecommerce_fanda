@@ -3,6 +3,7 @@ import MainCarousel from "../../components/mainCarousel/MainCarousel";
 import CategorySection from "../sections/Category";
 import FlashSell from "../sections/FlashSell";
 import ProductList from "../../features/products/ProductList";
+import ProductDetails from "../../features/products/product-details/Index"
 
 const Home = () => {
   //Categorys
@@ -307,6 +308,7 @@ const Home = () => {
           {/* Just for you products */}
           <ProductList products={products} />
         </motion.div>
+        <ProductDetails/>
       </div>
     </motion.div>
   );
