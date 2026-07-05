@@ -3,10 +3,10 @@ import ProductCard from "../../components/productCard/ProductCard";
 const ProductList = ({ products }) => {
   // শুরুতে কয়টি প্রোডাক্ট দেখাবে তার কাউন্ট (যেমন: ৮টি)
   const [visibleProducts, setVisibleProducts] = useState(2);
-  //   const [products, setProducts] = useState([]);
-  //   const [page, setPage] = useState(1);
-  //   const [loading, setLoading] = useState(false);
-  //   const [hasMore, setHasMore] = useState(true);
+    //const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
   // ডাটাবেজ থেকে ডাটা নিয়ে আসার মূল ফাংশন
   // const fetchProducts = async (currentPage) => {
   //   if (loading) return;
@@ -42,9 +42,9 @@ const ProductList = ({ products }) => {
   // };
   return (
     <div className="w-full bg-[#f5f5f5] py-4 px-4">
-      <div className="max-w-[1500px] mx-auto bg-white rounded-sm p-4 shadow-xs">
+      <div className="max-w-[1500px] mx-auto bg-white rounded-sm p-2 shadow-xs">
         {/* টাইটেল পার্ট */}
-        <div className="mb-4">
+        <div className="mb-2">
           <span className="text-xl text-gray-800 font-normal tracking-wide block">
             Product List..
           </span>
