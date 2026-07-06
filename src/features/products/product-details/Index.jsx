@@ -3,6 +3,9 @@ import Breadcrumb from "./Breadcrumb";
 import ProductGallery from "./ProductGallery";
 import ProductMainInfo from "./ProductMainInfo";
 import DeliverySidebar from "./DeliverySidebar";
+import ProductReviews from "./ProductReviews";
+import ProductQA from "./ProductQA";
+import RelatedProducts from "./RelatedProducts";
 
 export default function ProductDetailsPage() {
   // ডামি ডেটা (প্রোডাকশন লেভেলে এটি Redux State বা API Response থেকে আসবে)
@@ -73,21 +76,21 @@ export default function ProductDetailsPage() {
           {/* <ProductReviews /> */}
           <div>
             {/* পূর্বের তৈরি করা ProductReviews মডিউল এখানে কল হবে */}
-            Rating & Review
+            <ProductReviews/>
           </div>
 
           {/* প্রশ্ন ও উত্তর (Q&A) সেকশন */}
           {/* <ProductQA /> */}
           <div>
             {/* পূর্বের তৈরি করা ProductQA মডিউল এখানে কল হবে */}
-            Product QA
+            <ProductQA/>
           </div>
 
           {/* ইউ মে অলসো লাইক (রিলিজড প্রোডাক্টস রিকমেন্ডেশন) */}
           {/* <RelatedProducts /> */}
           <div>
             {/* পূর্বের তৈরি করা RelatedProducts মডিউল এখানে কল হবে */}
-            Product recomended
+            <RelatedProducts/>
           </div>
         </div>
       </div>
