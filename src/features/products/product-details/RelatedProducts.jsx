@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import ProductCard from "../../../components/productCard/ProductCard";
 
 const RelatedProducts = () => {
-    const products = [
+  const products = [
     {
       id: 1,
       image:
@@ -70,7 +70,7 @@ const RelatedProducts = () => {
       review: 170,
     },
   ];
-    const containerVariants = {
+  const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -79,7 +79,7 @@ const RelatedProducts = () => {
       },
     },
   };
-    const sectionVariants = {
+  const sectionVariants = {
     hidden: { opacity: 0, y: 60, scale: 0.98 },
     visible: {
       opacity: 1,
@@ -94,7 +94,7 @@ const RelatedProducts = () => {
     },
   };
   return (
-        <motion.div
+    <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -108,19 +108,22 @@ const RelatedProducts = () => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Related product section */}
-          <div className="my-2 mx-5 inline-block">
-              You may also like 🙋🙋
-          </div>
+          <div className="my-2 mx-5 inline-block">You may also like 🙋🙋</div>
           {/* you may also like products*/}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-          {
-            products.map((product) => <ProductCard product={product} showRating={true} smDiscount={true}/>)
-          }
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                showRating={true}
+                smDiscount={true}
+              />
+            ))}
           </div>
         </motion.div>
       </div>
-      </motion.div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default RelatedProducts
+export default RelatedProducts;
