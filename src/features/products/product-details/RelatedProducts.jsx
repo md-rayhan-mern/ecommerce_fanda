@@ -111,14 +111,12 @@ const RelatedProducts = () => {
           <div className="my-2 mx-5 inline-block">
               You may also like 🙋🙋
           </div>
-
           {/* you may also like products*/}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {
             products.map((product) => <ProductCard product={product} showRating={true} smDiscount={true}/>)
           }
           </div>
-         
         </motion.div>
       </div>
       </motion.div>

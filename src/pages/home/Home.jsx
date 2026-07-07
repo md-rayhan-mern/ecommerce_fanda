@@ -4,6 +4,7 @@ import CategorySection from "../sections/Category";
 import FlashSell from "../sections/FlashSell";
 import ProductList from "../../features/products/ProductList";
 import ProductDetails from "../../features/products/product-details/Index"
+import CheckoutPage from "../../features/checkout/checkout-page/Index";
 
 const Home = () => {
   //Categorys
@@ -309,6 +310,7 @@ const Home = () => {
           <ProductList products={products} />
         </motion.div>
         <ProductDetails/>
+        <CheckoutPage/>
       </div>
     </motion.div>
   );
