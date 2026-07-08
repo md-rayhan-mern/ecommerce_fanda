@@ -17,10 +17,7 @@ const CheckoutPage = () => {
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0 },
-  };
+
   const selectProducts = [
     {
       id: 1,

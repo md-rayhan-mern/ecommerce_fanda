@@ -5,6 +5,7 @@ import FlashSell from "../sections/FlashSell";
 import ProductList from "../../features/products/ProductList";
 import ProductDetails from "../../features/products/product-details/Index"
 import CheckoutPage from "../../features/checkout/checkout-page/Index";
+import Cart from "../../features/cart/cart-page/Index"
 
 const Home = () => {
   //Categorys
@@ -311,6 +312,7 @@ const Home = () => {
         </motion.div>
         <ProductDetails/>
         <CheckoutPage/>
+        <Cart/>
       </div>
     </motion.div>
   );
