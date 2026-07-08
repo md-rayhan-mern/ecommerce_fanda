@@ -48,7 +48,7 @@ const initialState = {
   user: auth,
   token: "",
   isLoading: false,
-  isLogIn: !!localStorage.getItem("user"),
+   isLogIn: true, //!!localStorage.getItem("user")
   error: null,
 };
 

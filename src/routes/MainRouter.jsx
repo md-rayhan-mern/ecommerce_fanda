@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { PrivateRoute } from "./privateroutes/PrivateRoute";
+import { PrivateRoutes } from "./privateroutes/Routes";
 import { AppRoute } from "./approutes/AppRoute";
 import { appRoutes } from "./approutes/Routes";
 import RootLayout from "../components/layout/RootLayout";
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         element: <AppRoute />,
         children: appRoutes,
+      },
+      {
+        element: <PrivateRoute />,
+        children: PrivateRoutes,
       },
     ],
   },
