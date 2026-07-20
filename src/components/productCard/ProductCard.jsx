@@ -1,6 +1,7 @@
 import { Star, StarHalf } from "lucide-react";
 import { motion } from "framer-motion";
 import { Heart, ShoppingBag, ArrowRight } from "lucide-react";
+import {Link } from "react-router"
 
 const ProductCard = ({
   product,
@@ -9,7 +10,9 @@ const ProductCard = ({
   smDiscount,
   oldPrice,
 }) => {
+  
   return (
+  
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
@@ -126,6 +129,7 @@ const ProductCard = ({
         {/* ======================================================= */}
       </div>
     </motion.div>
+    
   );
 };
 

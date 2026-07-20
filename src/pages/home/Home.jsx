@@ -310,7 +310,6 @@ const Home = () => {
           {/* Just for you products */}
           <ProductList products={products} />
         </motion.div>
-        <ProductDetails/>
         <CheckoutPage/>
         <Cart/>
       </div>

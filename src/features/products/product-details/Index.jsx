@@ -6,6 +6,8 @@ import DeliverySidebar from "./DeliverySidebar";
 import ProductReviews from "./ProductReviews";
 import ProductQA from "./ProductQA";
 import RelatedProducts from "./RelatedProducts";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 export default function ProductDetailsPage() {
   // ডামি ডেটা (প্রোডাকশন লেভেলে এটি Redux State বা API Response থেকে আসবে)
@@ -13,7 +15,13 @@ export default function ProductDetailsPage() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTagCvUpd_cytRycylEvv_n8erw0lcfUO0i_sHBTYA0h9cR-qUqvjCMdq1P&s=10",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStNl_yiU82rYG8VpnK0dCm9GQ451xnO8aYrXlti8Jb2308oKFdDN3bmoqd&s=10",
   ];
-
+  const {id} = useParams();
+  const {allProducts, isLoading, error} = useSelector((state) => state.allProducts);
+  const singleProduct = allProducts.find((product) => String(product.id) === String(id))
+  console.log(singleProduct.image);
+ 
+  
+  
   return (
     <div className="min-h-screen bg-[#f4f4f4] py-4 selection:bg-[#f57224]/20">
       <div className="max-w-[1500px] mx-auto px-3 sm:px-4">

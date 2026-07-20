@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ProductCard from "../../components/productCard/ProductCard";
+import {Link} from "react-router"
 const ProductList = ({ products }) => {
   // শুরুতে কয়টি প্রোডাক্ট দেখাবে তার কাউন্ট (যেমন: ৮টি)
   const [visibleProducts, setVisibleProducts] = useState(2);
@@ -51,18 +52,21 @@ const ProductList = ({ products }) => {
         </div>
 
         {/* গ্রিড লেআউট: ছবির মতো নিখুঁত বর্ডার গ্রিড ইফেক্ট (ডেক্সটপে ৮টি কলাম, ২ লাইন) */}
+        
         <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-6 border-t border-l border-gray-200">
           {products.map((product) => (
+            <Link to={`/details/${product.id}`} key={product.id}>
             <ProductCard
-              key={product.id}
               product={product}
               discount={false}
               showRating={true}
               smDiscount={true}
               oldPrice={false}
             />
+            </Link>
           ))}
         </div>
+       
         {/* visibleProducts এর মান যদি আপনার মোট প্রোডাক্টের চেয়ে কম হয়, তবেই বাটনটি স্ক্রিনে আসবে */}
         {visibleProducts < products.length && (
           <div className="flex justify-center mt-8 w-full">

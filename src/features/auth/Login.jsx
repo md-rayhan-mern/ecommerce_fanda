@@ -109,7 +109,7 @@ const Login = () => {
 
         {/* রেজিস্ট্রেশন পেজের লিংক */}
         <Link
-          to="/register"
+          to="/reg"
           className="w-full h-8 bg-gray-100 hover:bg-gray-200 border border-gray-400 rounded-sm text-xs font-normal flex items-center justify-center text-gray-900 shadow-sm transition"
         >
           Create your Website account
