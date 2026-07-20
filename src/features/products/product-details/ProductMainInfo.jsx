@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {Link} from "react-router"
 const ProductPurchaseModule = () => {
   const [quantity, setQuantity] = useState(1);
 
@@ -128,9 +128,9 @@ const ProductPurchaseModule = () => {
 
       {/* অ্যাকশন বাটনসমূহ */}
       <div className="grid grid-cols-2 gap-3">
-        <button className="w-full h-11 bg-[#26abd4] hover:bg-[#1f93b8] text-white font-medium rounded-sm shadow-sm transition-colors text-base">
+        <Link to={"/checkout"}  className="w-full h-11 bg-[#26abd4] hover:bg-[#1f93b8] text-white font-medium rounded-sm shadow-sm transition-colors text-base flex items-center justify-center">
           Buy Now
-        </button>
+        </Link>
         <button className="w-full h-11 bg-[#f57224] hover:bg-[#df631b] text-white font-medium rounded-sm shadow-sm transition-colors text-base">
           Add to Cart
         </button>
