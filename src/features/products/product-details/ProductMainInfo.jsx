@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Link} from "react-router"
-const ProductPurchaseModule = () => {
+const ProductPurchaseModule = ({product}) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrease = () => {
@@ -15,8 +15,7 @@ const ProductPurchaseModule = () => {
     <div className="max-w-xl p-4 bg-white font-sans text-gray-800">
       {/* প্রোডাক্ট টাইটেল */}
       <h1 className="text-xl md:text-2xl font-normal text-gray-900 leading-tight mb-2">
-        Portable Mini Table Fan Strong Wind Left to Right Oscillating Angle 45
-        Degrees - AC/DC
+        {product.name}
       </h1>
 
       {/* রেটিং ও শেয়ার সেকশন */}
@@ -24,7 +23,7 @@ const ProductPurchaseModule = () => {
         <div className="flex items-center text-sm">
           <div className="flex text-orange-400 mr-2">{"★".repeat(5)}</div>
           <span className="text-blue-500 hover:underline cursor-pointer mr-3">
-            Ratings 393
+            Ratings {product.review}
           </span>
           <span className="text-gray-300 mr-3">|</span>
           <span className="text-blue-500 hover:underline cursor-pointer">
@@ -71,22 +70,25 @@ const ProductPurchaseModule = () => {
       <div className="text-xs text-gray-500 mb-4">
         <span>Brand: </span>
         <span className="text-blue-500 hover:underline cursor-pointer">
-          No Brand
+          {product.brand[0] === "" ? `No brand` : product.brand[0]}
         </span>
         <span className="mx-2">|</span>
         <span className="text-blue-500 hover:underline cursor-pointer">
-          More Cooling & Heating from No Brand
+          {product.brand[1] === "" ? `More product` : product.brand[1]}
+          {/* More Cooling & Heating from No Brand */}
         </span>
       </div>
 
       {/* প্রাইস বা মূল্য সেকশন */}
       <div className="bg-gray-50/50 p-3 rounded-sm mb-5">
         <div className="flex items-baseline gap-2">
-          <span className="text-orange-500 text-3xl font-normal">৳ 999</span>
+          <span className="text-orange-500 text-3xl font-normal">{`৳${product.price}`}</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-400 mt-1">
-          <span className="line-through">৳ 1,690</span>
-          <span className="text-gray-800 font-medium">-41%</span>
+          {product.oldPrice === 0 || product.oldPrice === "" ? "" : <span className="line-through">৳{product.oldPrice}</span>}
+          {product.discount === 0 || product.discount === "" ? "" : <span className="text-gray-800 font-medium">{`-${product.discount}%`}</span>}
+          {/* <span className="line-through">{`৳${product.oldPrice}`}</span> */}
+          {/* <span className="text-gray-800 font-medium">{`-${product.discount}%`}</span> */}
         </div>
       </div>
 

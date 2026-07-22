@@ -18,7 +18,7 @@ export default function ProductDetailsPage() {
   const {id} = useParams();
   const {allProducts, isLoading, error} = useSelector((state) => state.allProducts);
   const singleProduct = allProducts.find((product) => String(product.id) === String(id))
-  console.log(singleProduct.image);
+  console.log(singleProduct);
  
   
   
@@ -30,7 +30,7 @@ export default function ProductDetailsPage() {
            ========================================================================= */}
         <div className="mb-4">
           {/* <Breadcrumb /> */}
-          <Breadcrumb />
+          <Breadcrumb bre={singleProduct.breadcrumbs} />
         </div>
 
         {/* =========================================================================
@@ -43,7 +43,7 @@ export default function ProductDetailsPage() {
             {/* <ProductGallery images={productImages} /> */}
             <div className="aspect-square bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 text-sm text-gray-400">
               {/* ProductGallery */}
-              <ProductGallery />
+              <ProductGallery img={singleProduct.image} gallery={singleProduct.galleryImage} />
             </div>
           </div>
 
@@ -56,7 +56,7 @@ export default function ProductDetailsPage() {
                 [মাঝের মডিউল পার্ট ২: বেগুনি রঙের ফ্ল্যাশ সেল কাউন্টডাউন টাইমার
                 ব্যানার এখানে বসবে] Flash sell
               </div>
-              <ProductMainInfo />
+              <ProductMainInfo product={singleProduct} />
             </div>
           </div>
 

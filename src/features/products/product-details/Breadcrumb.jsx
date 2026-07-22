@@ -1,6 +1,8 @@
 import React from "react";
 
-const Breadcrumb = () => {
+const Breadcrumb = ({bre}) => {
+  console.log(bre);
+  
   return (
     <>
       <div className="text-xs text-gray-500 py-1">

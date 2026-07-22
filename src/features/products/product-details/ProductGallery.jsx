@@ -10,18 +10,20 @@ import "swiper/css/thumbs";
 import "swiper/css/effect-fade";
 
 // টেস্টিংয়ের জন্য ৪টি চমৎকার হেডফোনের ডামি ইমেজ অ্যারে
-const DUMMY_IMAGES = [
-  "https://static.vecteezy.com/system/resources/thumbnails/047/003/863/small_2x/blue-t-shirt-hanging-on-wooden-hanger-against-pink-background-photo.jpeg", // মেইন হেডফোন
-  "https://plus.unsplash.com/premium_photo-1664392147011-2a720f214e01?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fHww", // সেকেন্ড ভিউ
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fHww", // থার্ড ভিউ
-  "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fHww"  // ফোর্থ ভিউ
-];
+// const DUMMY_IMAGES = [
+//   "https://static.vecteezy.com/system/resources/thumbnails/047/003/863/small_2x/blue-t-shirt-hanging-on-wooden-hanger-against-pink-background-photo.jpeg", // মেইন হেডফোন
+//   "https://plus.unsplash.com/premium_photo-1664392147011-2a720f214e01?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fHww", // সেকেন্ড ভিউ
+//   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fHww", // থার্ড ভিউ
+//   "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDB8fDB8fHww"  // ফোর্থ ভিউ
+// ];
 
-export default function ProductGallery() {
+export default function ProductGallery({img, gallery}) {
   // মেইন স্লাইডার এবং নিচের থাম্বনেইল স্লাইডারকে কানেক্ট করার জন্য এই স্টেটটি ব্যবহার করা হয়
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [mainSwiper, setMainSwiper] = useState(null); 
    const [zoomStyle, setZoomStyle] = useState({ display: "none", transformOrigin: "0% 0%" });
+
+const DUMMY_IMAGES = [img, gallery[0],gallery[1],gallery[2]]
 
     // 🖱️ ২. মাউস মুভমেন্ট অনুযায়ী জুম পজিশন ক্যালকুলেট করার ফাংশন
   const handleMouseMove = (e) => {
