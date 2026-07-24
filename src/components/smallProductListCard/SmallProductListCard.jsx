@@ -12,12 +12,6 @@ const SmallProductListCard = ({
   qty,
   indx,
 }) => {
-  console.log(qty);
-  console.log(`image : ${img}`);
-  console.log(`rating : ${rating}`);
-  console.log(`discount : ${discount}`);
-  console.log(`oldPrice : ${oldPrice}`);
-  console.log(`varint : ${varint.brand}`);
 
   return (
     <div className="flex flex-col sm:flex-row items-start gap-4 bg-gray-50/50 p-3 rounded-lg border border-gray-100">

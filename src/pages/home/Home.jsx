@@ -6,8 +6,21 @@ import ProductList from "../../features/products/ProductList";
 import ProductDetails from "../../features/products/product-details/Index"
 import CheckoutPage from "../../features/checkout/checkout-page/Index";
 import Cart from "../../features/cart/cart-page/Index"
+import { useSelector,useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchProducts } from "../../features/products/allProductSlice";
 
 const Home = () => {
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const {allProducts, isLoading, error,errorMessage} = useSelector((state) => state.allProducts);
+  console.log(allProducts);
+   
+  const dispatch = useDispatch();
+   useEffect(() => {
+    // থংকে সবসময় অবজেক্ট আকারে ডাটা পাঠাতে হবে { page, limit }
+    dispatch(fetchProducts({ page , limit }));
+  }, [dispatch, page , limit]); 
   //Categorys
   const categories = [
     {

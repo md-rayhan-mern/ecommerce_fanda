@@ -18,7 +18,7 @@ export default function ProductDetailsPage() {
   const {id} = useParams();
   const {allProducts, isLoading, error} = useSelector((state) => state.allProducts);
   const singleProduct = allProducts.find((product) => String(product.id) === String(id))
-  console.log(singleProduct);
+
  
   
   
