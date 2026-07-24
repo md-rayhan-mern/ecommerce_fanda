@@ -17,7 +17,16 @@ export default function ProductDetailsPage() {
   ];
   const {id} = useParams();
   const {allProducts, isLoading, error} = useSelector((state) => state.allProducts);
-  const singleProduct = allProducts.find((product) => String(product.id) === String(id))
+   const singleProduct = allProducts?.items?.find((product) => String(product?._id) === String(id));
+ if(isLoading) {
+  return <div>Loading</div>
+ }
+ if (!singleProduct) {
+  return <div>দুঃখিত, এই প্রোডাক্টটি খুঁজে পাওয়া যায়নি!</div>;
+}
+
+console.log(id);
+console.log(allProducts?.items);
 
  
   
@@ -30,7 +39,7 @@ export default function ProductDetailsPage() {
            ========================================================================= */}
         <div className="mb-4">
           {/* <Breadcrumb /> */}
-          <Breadcrumb bre={singleProduct.breadcrumbs} />
+          <Breadcrumb bre={singleProduct?.breadcrumbs} />
         </div>
 
         {/* =========================================================================

@@ -14,8 +14,8 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const {allProducts, isLoading, error,errorMessage} = useSelector((state) => state.allProducts);
-  console.log(allProducts);
-   
+  const products = allProducts?.items;
+  console.log(products);
   const dispatch = useDispatch();
    useEffect(() => {
     // থংকে সবসময় অবজেক্ট আকারে ডাটা পাঠাতে হবে { page, limit }
@@ -121,74 +121,74 @@ const Home = () => {
     },
   ];
   //Products
-  const products = [
-    {
-      id: 1,
-      image:
-        "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODR8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D", // ডামি ইমেজ লিংক, আপনার ইমেজ বসিয়ে নিবেন
-      name: "skin'O Strawberry Scented Shower Gel -...",
-      price: "২৫০",
-      oldPrice: "২৬০",
-      discount: "1",
-      rating: 1.5,
-      review: 120,
-    },
-    {
-      id: 2,
-      image:
-        "https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTl8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D",
-      name: "Casio Black Resin All-Season Digital Sports...",
-      price: "২৩৫",
-      oldPrice: "৫২৫",
-      discount: "৫৫",
-      rating: 2.5,
-      review: 160,
-    },
-    {
-      id: 3,
-      image:
-        "https://images.unsplash.com/photo-1571380401583-72ca84994796?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAyfHxwcm9kdWN0fGVufDB8fDB8fHww",
-      name: "TEL Premium Shoe Rack Red 4 Step Red 861587",
-      price: "৪৭৬",
-      oldPrice: "৬১০",
-      discount: "২২",
-      rating: 3.5,
-      review: 190,
-    },
-    {
-      id: 4,
-      image:
-        "https://images.unsplash.com/photo-1530630458144-014709e10016?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE0fHxwcm9kdWN0fGVufDB8fDB8fHww",
-      name: "Royal Cafe Classic Coffee 200g | Premium...",
-      price: "৬৪০",
-      oldPrice: "৭০০",
-      discount: "৩",
-      rating: 5,
-      review: 380,
-    },
-    {
-      id: 5,
-      image:
-        "https://images.unsplash.com/photo-1505740106531-4243f3831c78?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE5fHxwcm9kdWN0fGVufDB8fDB8fHww",
-      name: "Realme C100i 4/64GB Smartphone - 7000mAh...",
-      price: "১৫,৮৪৫",
-      oldPrice: "১৬,৯৯৯",
-      discount: "৭",
-      rating: 4,
-      review: 940,
-    },
-    {
-      id: 6,
-      image:
-        "https://images.unsplash.com/photo-1555487505-8603a1a69755?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIzfHxwcm9kdWN0fGVufDB8fDB8fHww",
-      name: "Top-Tier Option - Cute humidifier egg lighting...",
-      price: "১৮৭",
-      oldPrice: "৬००",
-      discount: "৬৯",
-      rating: 3.5,
-      review: 170,
-    },
-  ];
+  // const products = [
+  //   {
+  //     id: 1,
+  //     image:
+  //       "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODR8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D", // ডামি ইমেজ লিংক, আপনার ইমেজ বসিয়ে নিবেন
+  //     name: "skin'O Strawberry Scented Shower Gel -...",
+  //     price: "২৫০",
+  //     oldPrice: "২৬০",
+  //     discount: "1",
+  //     rating: 1.5,
+  //     review: 120,
+  //   },
+  //   {
+  //     id: 2,
+  //     image:
+  //       "https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTl8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D",
+  //     name: "Casio Black Resin All-Season Digital Sports...",
+  //     price: "২৩৫",
+  //     oldPrice: "৫২৫",
+  //     discount: "৫৫",
+  //     rating: 2.5,
+  //     review: 160,
+  //   },
+  //   {
+  //     id: 3,
+  //     image:
+  //       "https://images.unsplash.com/photo-1571380401583-72ca84994796?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAyfHxwcm9kdWN0fGVufDB8fDB8fHww",
+  //     name: "TEL Premium Shoe Rack Red 4 Step Red 861587",
+  //     price: "৪৭৬",
+  //     oldPrice: "৬১০",
+  //     discount: "২২",
+  //     rating: 3.5,
+  //     review: 190,
+  //   },
+  //   {
+  //     id: 4,
+  //     image:
+  //       "https://images.unsplash.com/photo-1530630458144-014709e10016?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE0fHxwcm9kdWN0fGVufDB8fDB8fHww",
+  //     name: "Royal Cafe Classic Coffee 200g | Premium...",
+  //     price: "৬৪০",
+  //     oldPrice: "৭০০",
+  //     discount: "৩",
+  //     rating: 5,
+  //     review: 380,
+  //   },
+  //   {
+  //     id: 5,
+  //     image:
+  //       "https://images.unsplash.com/photo-1505740106531-4243f3831c78?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE5fHxwcm9kdWN0fGVufDB8fDB8fHww",
+  //     name: "Realme C100i 4/64GB Smartphone - 7000mAh...",
+  //     price: "১৫,৮৪৫",
+  //     oldPrice: "১৬,৯৯৯",
+  //     discount: "৭",
+  //     rating: 4,
+  //     review: 940,
+  //   },
+  //   {
+  //     id: 6,
+  //     image:
+  //       "https://images.unsplash.com/photo-1555487505-8603a1a69755?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIzfHxwcm9kdWN0fGVufDB8fDB8fHww",
+  //     name: "Top-Tier Option - Cute humidifier egg lighting...",
+  //     price: "১৮৭",
+  //     oldPrice: "৬००",
+  //     discount: "৬৯",
+  //     rating: 3.5,
+  //     review: 170,
+  //   },
+  // ];
   // পুরো পেজ ও চিল্ড্রেন এলিমেন্টগুলোর জন্য অ্যানিমেশন ভেরিয়েন্ট
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ProductCard from "../../components/productCard/ProductCard";
 import {Link} from "react-router"
 const ProductList = ({ products }) => {
+  
   // শুরুতে কয়টি প্রোডাক্ট দেখাবে তার কাউন্ট (যেমন: ৮টি)
   const [visibleProducts, setVisibleProducts] = useState(2);
     //const [products, setProducts] = useState([]);
@@ -54,8 +55,8 @@ const ProductList = ({ products }) => {
         {/* গ্রিড লেআউট: ছবির মতো নিখুঁত বর্ডার গ্রিড ইফেক্ট (ডেক্সটপে ৮টি কলাম, ২ লাইন) */}
         
         <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-6 border-t border-l border-gray-200">
-          {products.map((product) => (
-            <Link to={`/details/${product.id}`} key={product.id}>
+          {products?.map((product) => (
+            <Link to={`/details/${product._id}`} key={product._id}>
             <ProductCard
               product={product}
               discount={false}
