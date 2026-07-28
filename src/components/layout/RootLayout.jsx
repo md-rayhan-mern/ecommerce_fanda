@@ -2,10 +2,11 @@ import { Outlet } from "react-router";
 import NabBar from "./NabBar";
 import Footer from "./Footer";
 import Sticky from "./Sticky";
-
+import ScrollTop from "../../ScrollTop";
 const RootLayout = () => {
   return (
     <>
+      <ScrollTop/>
       <nav className="max-w-[1500px] mx-auto ">
         <NabBar />
         <Sticky />
