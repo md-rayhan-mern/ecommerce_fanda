@@ -11,7 +11,7 @@ import {
 
 const DeliverySidebar = () => {
   return (
-    <div className="max-w-[320px] bg-white border border-[#eff0f5] font-sans text-[#212121]">
+    <div className="max-w-[800px] bg-white border border-[#eff0f5] font-sans text-[#212121]">
       {/* ১. Delivery Options Section */}
       <div className="p-4 border-b border-[#eff0f5]">
         <div className="flex items-center justify-between text-[12px] text-[#757575] mb-3">

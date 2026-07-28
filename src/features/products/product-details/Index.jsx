@@ -6,8 +6,11 @@ import DeliverySidebar from "./DeliverySidebar";
 import ProductReviews from "./ProductReviews";
 import ProductQA from "./ProductQA";
 import RelatedProducts from "./RelatedProducts";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {fetchingSingleProduct} from "../../products/allProductSlice.js"
 import { useParams } from "react-router";
+import { useEffect } from "react";
+
 
 export default function ProductDetailsPage() {
   // ডামি ডেটা (প্রোডাকশন লেভেলে এটি Redux State বা API Response থেকে আসবে)
@@ -16,19 +19,27 @@ export default function ProductDetailsPage() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStNl_yiU82rYG8VpnK0dCm9GQ451xnO8aYrXlti8Jb2308oKFdDN3bmoqd&s=10",
   ];
   const {id} = useParams();
-  const {allProducts, isLoading, error} = useSelector((state) => state.allProducts);
-   const singleProduct = allProducts?.items?.find((product) => String(product?._id) === String(id));
- if(isLoading) {
-  return <div>Loading</div>
+  const {allProducts, singleProduct, isLoading, error} = useSelector((state) => state.allProducts);
+  const sigProduct = allProducts?.items?.find((product) => String(product?._id) === String(id));
+  const dispatch = useDispatch();
+  // console.log(singleProduct?.galleryImage);
+  // console.log(singleProduct?.image);
+  // console.log(sigProduct);
+  
+
+   useEffect(() => {
+    if(!sigProduct){
+      dispatch(fetchingSingleProduct(id));
+    }
+   },[dispatch, id, sigProduct])
+
+ if(isLoading ) {
+  return <div>Loading.....</div>
  }
- if (!singleProduct) {
+ 
+ if (error) {
   return <div>দুঃখিত, এই প্রোডাক্টটি খুঁজে পাওয়া যায়নি!</div>;
 }
-
-console.log(id);
-console.log(allProducts?.items);
-
- 
   
   
   return (
@@ -39,7 +50,7 @@ console.log(allProducts?.items);
            ========================================================================= */}
         <div className="mb-4">
           {/* <Breadcrumb /> */}
-          <Breadcrumb bre={singleProduct?.breadcrumbs} />
+          <Breadcrumb bre={sigProduct?.breadcrumbs || singleProduct?.breadcrumbs} />
         </div>
 
         {/* =========================================================================
@@ -52,7 +63,7 @@ console.log(allProducts?.items);
             {/* <ProductGallery images={productImages} /> */}
             <div className="aspect-square bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 text-sm text-gray-400">
               {/* ProductGallery */}
-              <ProductGallery img={singleProduct.image} gallery={singleProduct.galleryImage} />
+              <ProductGallery img={sigProduct?.image || singleProduct?.image} gallery={sigProduct?.galleryImage || singleProduct?.galleryImage} />
             </div>
           </div>
 
@@ -65,7 +76,7 @@ console.log(allProducts?.items);
                 [মাঝের মডিউল পার্ট ২: বেগুনি রঙের ফ্ল্যাশ সেল কাউন্টডাউন টাইমার
                 ব্যানার এখানে বসবে] Flash sell
               </div>
-              <ProductMainInfo product={singleProduct} />
+              <ProductMainInfo product={sigProduct || singleProduct || "Loading.."} />
             </div>
           </div>
 
@@ -93,7 +104,7 @@ console.log(allProducts?.items);
           {/* <ProductReviews /> */}
           <div>
             {/* পূর্বের তৈরি করা ProductReviews মডিউল এখানে কল হবে */}
-            <ProductReviews/>
+            <ProductReviews name={sigProduct?.name || singleProduct?.name}/>
           </div>
 
           {/* প্রশ্ন ও উত্তর (Q&A) সেকশন */}

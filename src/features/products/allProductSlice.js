@@ -23,6 +23,19 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchingSingleProduct = createAsyncThunk("products/fetchSingleProduct", async (id, { rejectWithValue }) => {
+  try{ 
+     const url = import.meta.env.VITE_GET_PRODUCT_SI || '';
+     console.log(url);
+     
+  const response = await Api.get(`${url}/${id}`);
+  return response;
+}catch(error){
+return rejectWithValue(error.response?.data?.message || 'ডেটা লোড করতে সমস্যা হয়েছে');
+}
+
+})
+
 // ২. স্লাইসের প্রাথমিক অবস্থা (Initial State) ডিফাইন করা
 const initialState = {
   allProducts: {
@@ -34,6 +47,7 @@ const initialState = {
       totalPages: 0,
   }
   },
+  singleProduct: null,
   isLoading: false,
   error: null,
   errorMessage: null,
@@ -68,9 +82,26 @@ const productSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || 'কিছু একটা ভুল হয়েছে';
+      })
+       // *** নতুন যুক্ত করা হলো: সিঙ্গেল প্রডাক্টের কেসসমূহ ***
+      .addCase(fetchingSingleProduct.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.singleProduct = null; // নতুন ডাটা আসার আগে আগের প্রডাক্ট মুছে ফেলা
+      })
+      .addCase(fetchingSingleProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // আপনার এপিআই রেসপন্সের ফরম্যাট অনুযায়ী action.payload অথবা action.payload.data লিখুন
+        state.singleProduct = action.payload.data || action.payload; 
+       
+        
+      })
+       .addCase(fetchingSingleProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || 'সিঙ্গেল প্রডাক্ট আনতে সমস্যা হয়েছে';
       });
   },
 });
 
-export const { setLocalProducts } = productSlice.actions;
+export const { cleareProducts  } = productSlice.actions;
 export default productSlice.reducer;

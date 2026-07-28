@@ -23,7 +23,7 @@ export default function ProductGallery({img, gallery}) {
   const [mainSwiper, setMainSwiper] = useState(null); 
    const [zoomStyle, setZoomStyle] = useState({ display: "none", transformOrigin: "0% 0%" });
 
-const DUMMY_IMAGES = [img, gallery[0],gallery[1],gallery[2]]
+const DUMMY_IMAGES = [img , gallery?.[0],gallery?.[1],gallery?.[2]]
 
     // 🖱️ ২. মাউস মুভমেন্ট অনুযায়ী জুম পজিশন ক্যালকুলেট করার ফাংশন
   const handleMouseMove = (e) => {

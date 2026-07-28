@@ -1,7 +1,6 @@
 import React from "react";
 
 const Breadcrumb = ({bre}) => {
-  console.log(bre);
   
   return (
     <>

@@ -9,7 +9,7 @@ const MOCK_REVIEWS = [
   { id: 4, user: "Nusrat Jahan", rating: 3, date: "10 June 2026", comment: "Average performance, expected more." },
 ];
 
- const ProductReviews = () => {
+ const ProductReviews = ({name}) => {
   // রিভিউ স্টেট (ডাটা না থাকলে খালি অ্যারে `[]` করে টেস্ট করতে পারেন)
   const [reviews, setReviews] = useState(MOCK_REVIEWS);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,7 @@ const MOCK_REVIEWS = [
       
       {/* ১. হেডার ও রেটিং সামারি সেকশন */}
       <h2 className="text-lg font-semibold border-b border-gray-100 pb-3 mb-4">
-        Ratings & Reviews of Ryze SIM
+        Ratings & Reviews of {name}
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center border-b border-gray-100 pb-6">
