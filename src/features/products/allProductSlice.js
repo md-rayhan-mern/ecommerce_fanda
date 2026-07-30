@@ -2,7 +2,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Api from "../../services/Api.js"
 
+//Flesh sell product fetching
+export const fetchingFlasSel = createAsyncThunk("products/fetchingFlashSel", async () => {
 
+});
 
 // ১. এপিআই থেকে প্রোডাক্ট ডেটা আনার জন্য Async Thunk তৈরি
 export const fetchProducts = createAsyncThunk(
@@ -22,7 +25,7 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
-
+//Singal product fetching
 export const fetchingSingleProduct = createAsyncThunk("products/fetchSingleProduct", async (id, { rejectWithValue }) => {
   try{ 
      const url = import.meta.env.VITE_GET_PRODUCT_SI || '';
@@ -34,7 +37,9 @@ export const fetchingSingleProduct = createAsyncThunk("products/fetchSingleProdu
 return rejectWithValue(error.response?.data?.message || 'ডেটা লোড করতে সমস্যা হয়েছে');
 }
 
-})
+});
+
+
 
 // ২. স্লাইসের প্রাথমিক অবস্থা (Initial State) ডিফাইন করা
 const initialState = {
@@ -51,6 +56,15 @@ const initialState = {
   isLoading: false,
   error: null,
   errorMessage: null,
+  flashProduct: {
+    items: [],
+    meta: {
+       page : 0,
+      limit: 0,
+      totalProducts: 0,
+      totalPages: 0,
+    }
+  }
 };
 
 // ৩. প্রোডাক্ট স্লাইস তৈরি

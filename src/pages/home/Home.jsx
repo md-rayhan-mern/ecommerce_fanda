@@ -9,15 +9,31 @@ import Cart from "../../features/cart/cart-page/Index"
 import { useSelector,useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../../features/products/allProductSlice";
+import OfferCountDown from "../../utils/offerCountDown/OfferCountDown"
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const {allProducts, isLoading, error,errorMessage} = useSelector((state) => state.allProducts);
   const products = allProducts?.items;
-  console.log(products);
+   console.log(allProducts);
+  //  console.log(allProducts?.items[0]?.offer?.discountPercent);
+  //  console.log(allProducts?.items[0]?.offer?.startDate);
+
+//    const date = new Date(allProducts?.items[0]?.offer?.endDate);
+
+// const year = date.getFullYear();
+// const month = date.getMonth() + 1; // মাস ০ থেকে শুরু হয় তাই ১ যোগ করতে হবে
+// const day = date.getDate();
+// const hours = date.getHours().toString().padStart(2, '0'); // ২ ডিজিট নিশ্চিত করতে
+// const minutes = date.getMinutes().toString().padStart(2, '0');
+
+ const startDateStr = new Date(allProducts?.items[0]?.offer?.startDate); 
+  const endDateStr = new Date(allProducts?.items[0]?.offer?.endDate);
+   
   const dispatch = useDispatch();
    useEffect(() => {
+  
     // থংকে সবসময় অবজেক্ট আকারে ডাটা পাঠাতে হবে { page, limit }
     dispatch(fetchProducts({ page , limit }));
   }, [dispatch, page , limit]); 
@@ -265,6 +281,7 @@ const Home = () => {
           </div>
 
           {/* Flash sell products */}
+          <OfferCountDown startDateStr={startDateStr} endDateStr={endDateStr}/>
           <FlashSell products={products} />
         </motion.div>
       </div>
