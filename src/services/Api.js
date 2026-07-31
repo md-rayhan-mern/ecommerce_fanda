@@ -26,7 +26,7 @@ api.interceptors.response.use(
       console.error("Unauthorized! Logging out...");
       //window.location.href = '/login';
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   },
 );
 

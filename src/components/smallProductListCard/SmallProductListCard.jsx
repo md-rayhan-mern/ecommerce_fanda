@@ -12,7 +12,6 @@ const SmallProductListCard = ({
   qty,
   indx,
 }) => {
-
   return (
     <div className="flex flex-col sm:flex-row items-start gap-4 bg-gray-50/50 p-3 rounded-lg border border-gray-100">
       <div className="w-20 h-20 bg-gray-100 rounded border border-gray-200 flex-shrink-0 overflow-hidden flex items-center justify-center relative">
