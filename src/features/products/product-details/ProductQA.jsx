@@ -4,14 +4,14 @@ import QaLogin from "../../../components/products-details/isLogin/Qa"
 import QaLogout from '../../../components/products-details/isLogout/Qa';
 
 
-const ProductQA = () => {
+const ProductQA = ({faq, id}) => {
 
     const [isLogin, setIsLogin] = useState(true);
 
 
   return (
     <>
-   {isLogin ? <QaLogin/> : <QaLogout/>}
+   {isLogin ? <QaLogin faq={faq} id={id}/> : <QaLogout/>}
      
   </>)
 }

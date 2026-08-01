@@ -14,10 +14,10 @@ export const fetchProducts = createAsyncThunk(
   async ({ page, limit }, { rejectWithValue }) => {
     try {
       const url = import.meta.env.VITE_GET_PRODUCT_PG || "";
-      console.log(`Product pagination get api = ${url}?page=${1}&limit=${1}`);
+      console.log(`Product pagination get api = ${url}?page=${1}&limit=${12}`);
 
       // আপনার আসল এপিআই ইউআরএল (API URL) এখানে বসাবেন
-      const response = await Api.get(`${url}?page=${1}&limit=${1}`);
+      const response = await Api.get(`${url}?page=${1}&limit=${12}`);
 
       return response; // এটি সফল হলে payload হিসেবে যাবে
     } catch (error) {

@@ -36,8 +36,15 @@ const MOCK_QUESTIONS = [
   },
 ];
 
-const Qa = () => {
-  const [questions, setQuestions] = useState(MOCK_QUESTIONS);
+const Qa = ({faq, id}) => {
+  //console.log(faq);
+  //console.log(MOCK_QUESTIONS);
+  if(!faq){
+    return <div>Loading....</div>
+  }
+  const [questions, setQuestions] = useState(faq || MOCK_QUESTIONS);
+  console.log(questions);
+  
   const [newQuestion, setNewQuestion] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 2;
@@ -56,12 +63,8 @@ const Qa = () => {
     if (!newQuestion.trim()) return;
 
     const createdQuestion = {
-      id: Date.now(),
-      question: newQuestion,
-      askedBy: "You",
-      askedDate: "Today",
-      answer: null,
-      answeredTime: "",
+      product: id,
+      Q: newQuestion,
     };
 
     setQuestions([createdQuestion, ...questions]);
@@ -118,7 +121,7 @@ const Qa = () => {
           </div>
           <div className="space-y-6 min-h-[250px]">
             {currentQuestions.map((item) => (
-              <div key={item.id} className="space-y-3">
+              <div key={item._id} className="space-y-3">
                 {/* প্রশ্ন ব্লগ */}
                 <div className="flex items-start gap-3">
                   <span className="bg-[#1095b0] text-white text-[11px] font-bold w-[18px] h-[18px] flex items-center justify-center rounded-[2px] shrink-0 mt-0.5">
@@ -126,27 +129,27 @@ const Qa = () => {
                   </span>
                   <div>
                     <p className="text-gray-900 font-normal leading-tight">
-                      {item.question}
+                      {item?.Q}
                     </p>
                     <p className="text-xs text-gray-400 mt-1">
-                      {item.askedBy} - {item.askedDate}
+                      {item?.user} - {item?.createdAt}
                     </p>
                   </div>
                 </div>
 
                 {/* উত্তর ব্লগ */}
-                {item.answer && (
+                {item?.A && (
                   <div className="flex items-start gap-3 pl-1">
                     <span className="bg-[#a3a3a3] text-white text-[11px] font-bold w-[18px] h-[18px] flex items-center justify-center rounded-[2px] shrink-0 mt-0.5">
                       A
                     </span>
                     <div>
                       <p className="text-gray-800 font-normal leading-tight">
-                        {item.answer}
+                        {item?.A}
                       </p>
                       <p className="text-xs text-gray-400 mt-1">
                         Samaro -{" "}
-                        <span className="italic">{item.answeredTime}</span>
+                        <span className="italic">{item?.updatedAt}</span>
                       </p>
                     </div>
                   </div>
