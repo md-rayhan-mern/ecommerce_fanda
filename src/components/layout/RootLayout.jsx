@@ -6,7 +6,7 @@ import ScrollTop from "../../ScrollTop";
 const RootLayout = () => {
   return (
     <>
-      <ScrollTop/>
+      <ScrollTop />
       <nav className="max-w-[1500px] mx-auto ">
         <NabBar />
         <Sticky />

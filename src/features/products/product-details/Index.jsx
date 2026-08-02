@@ -22,9 +22,7 @@ export default function ProductDetailsPage() {
   const {allProducts, singleProduct, isLoading, error} = useSelector((state) => state.allProducts);
   const sigProduct = allProducts?.items?.find((product) => String(product?._id) === String(id));
   const dispatch = useDispatch();
-  // console.log(singleProduct?.galleryImage);
-  // console.log(singleProduct?.image);
-  // console.log(sigProduct);
+
   
 
    useEffect(() => {
@@ -40,7 +38,6 @@ export default function ProductDetailsPage() {
  if (error) {
   return <div>দুঃখিত, এই প্রোডাক্টটি খুঁজে পাওয়া যায়নি!</div>;
 }
-  
   
   return (
     <div className="min-h-screen bg-[#f4f4f4] py-4 selection:bg-[#f57224]/20">
@@ -111,7 +108,7 @@ export default function ProductDetailsPage() {
           {/* <ProductQA /> */}
           <div>
             {/* পূর্বের তৈরি করা ProductQA মডিউল এখানে কল হবে */}
-            <ProductQA/>
+            <ProductQA faq={sigProduct?.faqs || singleProduct?.faqs } id={id}/>
           </div>
 
           {/* ইউ মে অলসো লাইক (রিলিজড প্রোডাক্টস রিকমেন্ডেশন) */}

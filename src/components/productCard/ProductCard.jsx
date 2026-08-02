@@ -1,7 +1,7 @@
 import { Star, StarHalf } from "lucide-react";
 import { motion } from "framer-motion";
 import { Heart, ShoppingBag, ArrowRight } from "lucide-react";
-import {Link } from "react-router"
+import { Link } from "react-router";
 
 const ProductCard = ({
   product,
@@ -11,11 +11,10 @@ const ProductCard = ({
   oldPrice,
 }) => {
   const handleCart = (e) => {
-     e.stopPropagation(); 
-     e.preventDefault();
-  }
+    e.stopPropagation();
+    e.preventDefault();
+  };
   return (
-  
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
@@ -33,7 +32,10 @@ const ProductCard = ({
       )}
 
       {/* 🤍 Wish list button */}
-      <button onClick={handleCart} className="absolute top-3 right-3 z-10 p-2 bg-white/90 hover:bg-white text-gray-500 hover:text-red-500 rounded-full transition-all duration-200 shadow-sm border border-gray-50 active:scale-90">
+      <button
+        onClick={handleCart}
+        className="absolute top-3 right-3 z-10 p-2 bg-white/90 hover:bg-white text-gray-500 hover:text-red-500 rounded-full transition-all duration-200 shadow-sm border border-gray-50 active:scale-90"
+      >
         <Heart className="w-4 h-4 transition-colors" />
       </button>
 
@@ -51,7 +53,7 @@ const ProductCard = ({
         <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:block">
           <motion.button
             whileTap={{ scale: 0.96 }}
-            className="w-full py-2.5 bg-gray-900 hover:bg-amber-500 text-white hover:text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-1 shadow-md transition-all duration-300" 
+            className="w-full py-2.5 bg-gray-900 hover:bg-amber-500 text-white hover:text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-1 shadow-md transition-all duration-300"
             onClick={handleCart}
           >
             <ShoppingBag className="w-4 h-4" /> Add to Cart
@@ -133,7 +135,6 @@ const ProductCard = ({
         {/* ======================================================= */}
       </div>
     </motion.div>
-    
   );
 };
 
