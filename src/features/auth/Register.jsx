@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import {Link} from "react-router"
 import { motion } from 'framer-motion';
-import { User, Phone, Mail, Lock, MapPin, Briefcase, Home, HelpCircle } from 'lucide-react';
+import { User, Phone, Mail, Lock, MapPin, Briefcase, Home, HelpCircle, UserCheck } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from "react-hot-toast";
+import {registerUser} from "./authSlice"
+
 
 export const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -10,18 +14,91 @@ export const SignupPage = () => {
     email: '',
     password: '',
     addressType: 'home', // default value
-    address: ''
+    areaDetails: '',
+    gender: ''
   });
-console.log(formData);
+  console.log(formData);
+  
+  const genderOptions = [
+          { id: 'Male', label: 'মেল (Male)', icon: UserCheck, color: 'border-blue-500 text-blue-600 bg-blue-50/50 dark:bg-blue-950/20' },
+          { id: 'Female', label: 'ফিমেল (Female)', icon: UserCheck, color: 'border-pink-500 text-pink-600 bg-pink-50/50 dark:bg-pink-950/20' },
+          { id: 'Other', label: 'অন্যান্য (Other)', icon: HelpCircle, color: 'border-purple-500 text-purple-600 bg-purple-50/50 dark:bg-purple-950/20' }
+        ];
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Signup Data submitted:", formData);
     // এখানে আপনার API কল করতে পারেন
+    if(!formData.name.trim()){
+      toast.error("অনুগ্রহ করে আপনার পুরো নাম লিখুন!");
+      return;
+    }
+    const bdPhoneRegex = /^(?:\+88|88)?(01[3-9]\d{8})$/;
+    if(!formData.phone.trim()){
+      toast.error("মোবাইল নাম্বার দেওয়া বাধ্যতামূলক!");
+      return;
+    }else if(!bdPhoneRegex.test(formData.phone.trim())){
+      toast.error("একটি সঠিক ১১ ডিজিটের বাংলাদেশি মোবাইল নাম্বার দিন!");
+      return;
+    }
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if(!formData.email.trim()){
+      toast.error("ইমেইল অ্যাড্রেস দেওয়া বাধ্যতামূলক!");
+      return;
+     }else if(!emailRegex.test(formData.email)){
+      toast.error("অনুগ্রহ করে একটি সঠিক ইমেইল আইডি দিন!");
+      return;
+     }
+         if(!formData.password){
+      toast.error("একটি স্ট্রং পাসওয়ার্ড তৈরি করুন!");
+      return;
+     }else if(formData.password.length < 6){
+      toast.error("পাসওয়ার্ড অন্তত ৬ অক্ষরের হতে হবে!");
+      return;
+     }
+      if(!formData.gender){
+      toast.error("অনুগ্রহ করে আপনার জেন্ডার সিলেক্ট করুন!");
+      return;
+     }
+     if(!formData.areaDetails){
+      toast.error("এড্রেস দেউয়া বাধ্যতামুলক!");
+      return;
+     }
+
+ 
+     //dispatching
+     try{
+      await toast.promise(
+      dispatch(registerUser(formData)).unwrap(),
+          {
+            loading: "অ্যাকাউন্ট তৈরি হচ্ছে, অপেক্ষা করুন...",
+            success: "আপনার অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! 🎉",
+            error: (err) => err?.message || 'অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।'
+          }
+     )
+
+     setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      password: "",
+      addressType: 'home', // default value
+      areaDetails: '',
+      gender: ''
+     })
+     }catch(error){
+      toast.error("সাইনআপ এরর:");
+      console.log(error);
+      
+     }
+    
+
   };
 
   // অ্যানিমেশন ভ্যারিয়েন্ট
@@ -59,11 +136,11 @@ console.log(formData);
           </motion.p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} noValidate className="space-y-5">
           
           {/* Name Field */}
           <motion.div variants={itemVariants} className="relative">
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">আপনার নাম</label>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">আপনার নাম <span className="text-red-500">*</span></label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -80,7 +157,7 @@ console.log(formData);
 
           {/* Phone Field */}
           <motion.div variants={itemVariants} className="relative">
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">মোবাইল নাম্বার</label>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">মোবাইল নাম্বার <span className="text-red-500">*</span></label>
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -97,7 +174,7 @@ console.log(formData);
 
           {/* Email Field */}
           <motion.div variants={itemVariants} className="relative">
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">ইমেইল ঠিকানা</label>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">ইমেইল ঠিকানা <span className="text-red-500">*</span></label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -114,7 +191,7 @@ console.log(formData);
 
           {/* Password Field */}
           <motion.div variants={itemVariants} className="relative">
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">পাসওয়ার্ড</label>
+            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">পাসওয়ার্ড <span className="text-red-500">*</span></label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
@@ -127,16 +204,79 @@ console.log(formData);
                 className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all text-sm"
               />
             </div>
-          </motion.div>
 
+          {/* gender selection area */}
+      <motion.div variants={itemVariants} className="relative">
+      {/* লেবেল বা শিরোনাম */}
+      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mt-5 mb-2">
+        জেন্ডার সিলেক্ট করুন <span className="text-red-500">*</span>
+      </label>
+      {/* রেসপন্সিভ গ্রিড: মোবাইলে ১টি করে, ছোট স্ক্রিনের উপরে ৩টি কলামে দেখাবে */}
+      <div className="grid grid-cols-3 gap-3">
+        {genderOptions.map((option) => {
+          const Icon = option.icon;
+          const isSelected = formData.gender === option.id;
+
+          return (
+            <div key={option.id} className="relative">
+              {/* রেডিও ইনপুট (ব্যাকএন্ডে ডাটা পাঠানোর জন্য এটি হিডেন থাকবে কিন্তু কাজ করবে) */}
+              <input
+                type="radio"
+                required
+                name="gender"
+                id={option.id}
+                value={option.id}
+                checked={isSelected}
+                onChange={handleChange}
+                className="sr-only" // স্ক্রিন রিডার ছাড়া এটি ইনপুটকে হাইড করে রাখবে
+              />
+
+              {/* কাস্টম ডিজাইন করা বাটন যা ইনপুট হিসেবে কাজ করবে */}
+              <motion.label
+                htmlFor={option.id}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`flex items-center sm:flex-col sm:justify-center gap-3 sm:gap-2 px-4 py-3 rounded-2xl border-2 cursor-pointer transition-all text-sm font-medium text-center
+                  ${isSelected 
+                    ? `${option.color} font-bold shadow-md` 
+                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800'
+                  }`}
+              >
+                {/* আইকন অ্যানিমেশন */}
+                <motion.div
+                  animate={{ scale: isSelected ? 1.1 : 1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                >
+                  <Icon className={`w-5 h-5 ${isSelected ? '' : 'text-gray-400'}`} />
+                </motion.div>
+
+                {/* টেক্সট লেবেল */}
+                <span>{option.label}</span>
+
+                {/* সিলেক্টেড হলে ছোট একটি টিক চিহ্নের অ্যানিমেশন (ঐচ্ছিক) */}
+                {isSelected && (
+                  <motion.div 
+                    layoutId="activeIndicator"
+                    className="absolute top-2 right-2 w-2 h-2 rounded-full bg-current"
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  />
+                )}
+              </motion.label>
+            </div>
+          );
+        })}
+      </div>
+      </motion.div>
+        
           {/* Address Type (Radio Buttons) */}
+          </motion.div>
           <motion.div variants={itemVariants}>
             <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">ঠিকানার ধরন</label>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { id: 'home', label: 'Home', icon: Home },
-                { id: 'office', label: 'Office', icon: Briefcase },
-                { id: 'other', label: 'Other', icon: HelpCircle }
+                { id: 'Home', label: 'Home', icon: Home },
+                { id: 'Office', label: 'Office', icon: Briefcase },
+                { id: 'Other', label: 'Other', icon: HelpCircle }
               ].map((type) => {
                 const IconComponent = type.icon;
                 const isSelected = formData.addressType === type.id;
@@ -152,7 +292,8 @@ console.log(formData);
                   >
                     <input 
                       type="radio" 
-                      name="addressType" 
+                      name="addressType"
+                      required
                       value={type.id}
                       checked={isSelected}
                       onChange={handleChange}
@@ -172,10 +313,10 @@ console.log(formData);
             <div className="relative">
               <MapPin className="absolute left-3 top-3 text-slate-400 w-5 h-5" />
               <textarea 
-                name="address" 
+                name="areaDetails" 
                 required
                 rows="2"
-                value={formData.address}
+                value={formData.areaDetails}
                 onChange={handleChange}
                 placeholder="বাসা নং, রোড নং, এলাকা, শহর..." 
                 className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all text-sm resize-none"
@@ -195,7 +336,7 @@ console.log(formData);
           </motion.button>
 
         </form>
-        <Link to="/login" className="text-indigo-400 w-full hover:text-indigo-300 text-sm font-medium">
+        <Link to="/login" className="text-indigo-400 w-full text-center hover:text-indigo-300 text-sm font-medium">
           Already have an account? Sign in
         </Link>
       </motion.div>

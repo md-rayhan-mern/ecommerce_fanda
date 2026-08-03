@@ -7,7 +7,7 @@ const AuthService = {
         import.meta.env.VITE_USER_API_URL_LOGIN,
         credentials,
       );
-      return response.data;
+      return response;
     } catch (error) {
       throw error;
     }
@@ -15,9 +15,11 @@ const AuthService = {
   register: async (userData) => {
     try {
       const response = await API.post(
-        import.meta.env.VITE_USER_API_URL_REGISTER,
+        import.meta.env.VITE_GET_CREATE_USER,
         userData,
       );
+      console.log(response);
+      
       return response.data;
     } catch (error) {
       throw error;

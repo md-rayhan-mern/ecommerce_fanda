@@ -10,7 +10,7 @@ import {
 // মক ডাটা
 const MOCK_QUESTIONS = [
   {
-    id: 1,
+    _id: 1,
     question: "full sleeve ache etar?",
     askedBy: "jisan7880",
     askedDate: "01 May 2026",
@@ -18,7 +18,7 @@ const MOCK_QUESTIONS = [
     answeredTime: "Answered within 2 weeks",
   },
   {
-    id: 2,
+    _id: 2,
     question: "Logo embroidery kora? Naki print?",
     askedBy: "Turabi Alam",
     askedDate: "04 May 2026",
@@ -26,7 +26,7 @@ const MOCK_QUESTIONS = [
     answeredTime: "Answered within 1 week",
   },
   {
-    id: 3,
+    _id: 3,
     question:
       "Vai onekei dekhlam review diche jersey er hate world cup 26 er jhei logo seita missing... Tho ami o jodi order kori eita ki missing thakbe..?",
     askedBy: "0***0",
@@ -66,7 +66,7 @@ const Qa = ({faq, id}) => {
       product: id,
       Q: newQuestion,
     };
-
+    
     setQuestions([createdQuestion, ...questions]);
     setNewQuestion("");
     setCurrentPage(1);

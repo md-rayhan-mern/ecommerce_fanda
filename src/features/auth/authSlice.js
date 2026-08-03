@@ -26,14 +26,14 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await AuthService.register(userData);
+      console.log(response);
+      
       if (response?.success) {
         localStorage.setItem("user", JSON.stringify(response));
-        toast.success("Registration successful!");
       }
       return response;
     } catch (error) {
       const errorMessage = error.response?.data?.message;
-      toast.error(errorMessage || "Registration failed. Please try again.");
       return rejectWithValue(
         errorMessage || "Registration failed. Please try again.",
       );
@@ -48,7 +48,7 @@ const initialState = {
   user: auth,
   token: "",
   isLoading: false,
-  isLogIn: false, //!!localStorage.getItem("user")
+  isLogIn: !!localStorage.getItem("user"),
   error: null,
 };
 

@@ -8,6 +8,7 @@ import {
   X,
   User,
 } from "lucide-react";
+import ProfileDropdown from "../profileDropdown/profileDropdown"
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -83,7 +84,8 @@ const Navbar = () => {
           </div>
 
           {/* অ্যাকাউন্ট এবং লিস্ট */}
-          <div className="flex flex-col border border-transparent hover:border-white p-2 rounded cursor-pointer">
+          <ProfileDropdown/>
+          {/* <div className="flex flex-col border border-transparent hover:border-white p-2 rounded cursor-pointer">
             <span className="text-[11px] font-normal text-gray-300 leading-none">
               Hello, sign in
             </span>
@@ -91,7 +93,7 @@ const Navbar = () => {
               Account & Lists{" "}
               <ChevronDown className="w-3 h-3 text-gray-400 mt-0.5" />
             </span>
-          </div>
+          </div> */}
 
           {/* রিটার্ন এবং অর্ডার (ট্যাবলেট ও ডেস্কটপ) */}
           <div className="hidden sm:flex flex-col border border-transparent hover:border-white p-2 rounded cursor-pointer">
