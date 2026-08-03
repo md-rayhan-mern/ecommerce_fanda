@@ -4,6 +4,7 @@ import { User, LogOut, ShoppingBag, LogIn, UserPlus, ChevronDown, Menu } from 'l
 import {Link} from "react-router";
 import { useSelector, useDispatch  } from 'react-redux';
 import { openAuthModel } from '../../features/auth/authSlice';
+import {logout} from "../../features/auth/authSlice";
 
 const ProfileDropdown = () => {
   // ইউজার লগইন আছে কিনা তা ট্র্যাক করার স্টেট (টেস্ট করার জন্য true/false পরিবর্তন করুন)
@@ -42,6 +43,12 @@ const ProfileDropdown = () => {
     }
   };
 
+  const handleLogout = () => {
+    setIsOpen(false);
+    dispatch(logout());
+
+  }
+
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
       {/* প্রোফাইল ট্রিগার বাটন */}
@@ -50,7 +57,7 @@ const ProfileDropdown = () => {
         className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-500 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition-all shadow-sm active:scale-95"
       >
         {/* রেসপন্সিভনেস: মোবাইলে মেনু আইকন দেখাবে, বড় স্ক্রিনে সুন্দর বর্ডার দেখাবে */}
-        <Menu className="w-4 h-4 md:hidden" />
+        {/* <Menu className="w-4 h-4 md:hidden" /> */}
         
         <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">
           {isLoggedIn ? user?.name?.split(" ")[0]?.split("")[0].toUpperCase()  : <User className="w-4 h-4" />}
@@ -100,7 +107,8 @@ const ProfileDropdown = () => {
                   <div className="my-1 border-t border-gray-100 dark:border-gray-800" />
                   
                   <button 
-                    onClick={() => { setIsLoggedIn(false); setIsOpen(false); }}
+                    // onClick={() => { setIsLoggedIn(false); setIsOpen(false); }}
+                    onClick={() => handleLogout()}
                     className="flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium text-red-600 dark:text-red-400 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />

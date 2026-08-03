@@ -83,7 +83,7 @@ const  AuthModal = () =>  {
             </div>
 
             {/* কন্ডিশনাল ফর্ম রেন্ডারিং */}
-            {authModelType === 'login' ? "log": <SignupPage />}
+            {authModelType === 'login' ? <Login />: <SignupPage />}
 
             {/* নিচে লগইন/সাইনআপ সুইচ করার টেক্সট লিঙ্ক */}
             <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">

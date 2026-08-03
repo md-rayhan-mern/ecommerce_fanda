@@ -13,7 +13,7 @@ export const SignupPage = () => {
     phone: '',
     email: '',
     password: '',
-    addressType: 'home', // default value
+    addressType: 'Home', // default value
     areaDetails: '',
     gender: ''
   });
@@ -78,7 +78,6 @@ export const SignupPage = () => {
           {
             loading: "অ্যাকাউন্ট তৈরি হচ্ছে, অপেক্ষা করুন...",
             success: "আপনার অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! 🎉",
-            error: (err) => err?.message || 'অ্যাকাউন্ট তৈরিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।'
           }
      )
 
@@ -87,14 +86,12 @@ export const SignupPage = () => {
       phone: "",
       email: "",
       password: "",
-      addressType: 'home', // default value
+      addressType: 'Home', // default value
       areaDetails: '',
       gender: ''
      })
      }catch(error){
-      toast.error("সাইনআপ এরর:");
-      console.log(error);
-      
+      toast.error(error);  
      }
     
 
@@ -116,7 +113,7 @@ export const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 flex items-center justify-center p-2">
       <motion.div 
         variants={containerVariants}
         initial="hidden"

@@ -7,12 +7,15 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await AuthService.login(userData);
+      console.log(response);
+      
       if (response?.success) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response?.data));
       }
       return response;
     } catch (error) {
-      const errorMessage = error.response?.data?.message;
+      const errorMessage = error?.response?.message;
+      console.log(errorMessage);
       return rejectWithValue(errorMessage || "Login failed. Please try again.");
     }
   },
@@ -70,6 +73,8 @@ const authSlice = createSlice({
       state.user = null;
       state.isLogIn = false;
       state.isLoading = false;
+      state.isAuthModelOpen = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -80,8 +85,10 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload?.message;
+        state.isAuthModelOpen = false;
+        state.user = action.payload?.data;
         state.isLogIn = true;
+        state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -95,7 +102,8 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload?.message;
+        state.isAuthModelOpen = false;
+        state.user = action?.payload?.data;
         state.isLogIn = true;
         state.error = null;
       })
