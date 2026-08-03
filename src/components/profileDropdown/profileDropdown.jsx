@@ -2,10 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, LogOut, ShoppingBag, LogIn, UserPlus, ChevronDown, Menu } from 'lucide-react';
 import {Link} from "react-router";
+import { useSelector, useDispatch  } from 'react-redux';
+import { openAuthModel } from '../../features/auth/authSlice';
 
 const ProfileDropdown = () => {
   // ইউজার লগইন আছে কিনা তা ট্র্যাক করার স্টেট (টেস্ট করার জন্য true/false পরিবর্তন করুন)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {isLogIn , user} = useSelector((state)=> state.auth);
+ 
+  const dispatch = useDispatch();
+  const isLoggedIn  = isLogIn;
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -48,11 +53,11 @@ const ProfileDropdown = () => {
         <Menu className="w-4 h-4 md:hidden" />
         
         <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-semibold">
-          {isLoggedIn ? 'U' : <User className="w-4 h-4" />}
+          {isLoggedIn ? user?.name?.split(" ")[0]?.split("")[0].toUpperCase()  : <User className="w-4 h-4" />}
         </div>
         
         <span className="hidden md:inline text-sm font-medium">
-          {isLoggedIn ? 'আমার অ্যাকাউন্ট' : 'অ্যাকাউন্ট'}
+          {isLoggedIn ? user?.name?.split(" ")[0].toUpperCase() : 'অ্যাকাউন্ট'}
         </span>
         
         <motion.div
@@ -109,19 +114,21 @@ const ProfileDropdown = () => {
                     স্বাগতম
                   </div>
                   
-                  <Link
-                    to={"/login"} 
-                    onClick={() => { setIsLoggedIn(true); setIsOpen(false); }}
+                  <button
+                    // onClick={() => { setIsLoggedIn(true); setIsOpen(false); }}
+                    onClick={() => dispatch(openAuthModel("login"))}
                     className="flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   >
                     <LogIn className="w-4 h-4 text-blue-500" />
                     লগইন
-                  </Link>
+                  </button>
                   
-                  <Link to={"/reg"} className="flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                  <button
+                    onClick={() => dispatch(openAuthModel('reg'))}
+                    className="flex w-full items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <UserPlus className="w-4 h-4 text-green-500" />
                     সাইনআপ
-                  </Link>
+                  </button>
                 </>
               )}
             </div>

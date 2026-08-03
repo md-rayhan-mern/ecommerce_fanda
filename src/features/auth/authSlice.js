@@ -9,12 +9,10 @@ export const loginUser = createAsyncThunk(
       const response = await AuthService.login(userData);
       if (response?.success) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        toast.success("Login successful!");
       }
       return response;
     } catch (error) {
       const errorMessage = error.response?.data?.message;
-      toast.error(errorMessage || "Login failed. Please try again.");
       return rejectWithValue(errorMessage || "Login failed. Please try again.");
     }
   },
@@ -26,10 +24,9 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await AuthService.register(userData);
-      console.log(response);
       
       if (response?.success) {
-        localStorage.setItem("user", JSON.stringify(response));
+        localStorage.setItem("user", JSON.stringify(response.data));
       }
       return response;
     } catch (error) {
@@ -50,12 +47,24 @@ const initialState = {
   isLoading: false,
   isLogIn: !!localStorage.getItem("user"),
   error: null,
+  isAuthModelOpen: false,
+  authModelType: "login",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    openAuthModel: (state, action) => {
+      state.isAuthModelOpen = true;
+      state.authModelType = action.payload;
+    },
+    closeAuthModel: (state, action) => {
+      state.isAuthModelOpen = false;
+    },
+    switchAuthModel: (state, action) => {
+        state.authModelType = action.payload;
+    },
     logout: (state) => {
       localStorage.removeItem("user");
       state.user = null;
@@ -96,5 +105,5 @@ const authSlice = createSlice({
       });
   },
 });
-export const { logout } = authSlice.actions;
+export const {openAuthModel, closeAuthModel, switchAuthModel, logout } = authSlice.actions;
 export default authSlice.reducer;

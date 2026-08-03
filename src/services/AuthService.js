@@ -18,9 +18,8 @@ const AuthService = {
         import.meta.env.VITE_GET_CREATE_USER,
         userData,
       );
-      console.log(response);
       
-      return response.data;
+      return response;
     } catch (error) {
       throw error;
     }

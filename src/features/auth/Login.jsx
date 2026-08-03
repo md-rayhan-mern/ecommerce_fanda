@@ -4,7 +4,7 @@ import { loginUser } from "./authSlice";
 import { Link } from "react-router"; // React Router v7 স্ট্যান্ডার্ড
 import { LogIn, Loader2 } from "lucide-react"; // Lucide আইকন
 
-const Login = () => {
+ export const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen  bg-gray-100 flex flex-col items-center justify-center p-4 font-sans">
+    <div className="min-h-[0px]  bg-gray-100 flex flex-col items-center justify-center p-4 font-sans">
       {/* অ্যামাজন লোগো সিমুলেশন */}
       <div className="mb-6 flex flex-col items-center cursor-pointer text-[#131921]">
         <span className="text-3xl font-black tracking-tight leading-none">
@@ -119,4 +119,3 @@ const Login = () => {
   );
 };
 
-export default Login;

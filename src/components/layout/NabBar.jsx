@@ -8,7 +8,7 @@ import {
   X,
   User,
 } from "lucide-react";
-import ProfileDropdown from "../profileDropdown/profileDropdown"
+import ProfileDropdown from "../profileDropdown/ProfileDropdown"
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

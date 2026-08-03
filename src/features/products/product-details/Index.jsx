@@ -20,6 +20,9 @@ export default function ProductDetailsPage() {
   ];
   const {id} = useParams();
   const {allProducts, singleProduct, isLoading, error} = useSelector((state) => state.allProducts);
+  const {isLogIn , user} = useSelector((state) => state.auth);
+  console.log(isLogIn);
+  
   const sigProduct = allProducts?.items?.find((product) => String(product?._id) === String(id));
   const dispatch = useDispatch();
 
@@ -108,7 +111,7 @@ export default function ProductDetailsPage() {
           {/* <ProductQA /> */}
           <div>
             {/* পূর্বের তৈরি করা ProductQA মডিউল এখানে কল হবে */}
-            <ProductQA faq={sigProduct?.faqs || singleProduct?.faqs } id={id}/>
+            <ProductQA isLogIn={isLogIn} faq={sigProduct?.faqs || singleProduct?.faqs } id={id}/>
           </div>
 
           {/* ইউ মে অলসো লাইক (রিলিজড প্রোডাক্টস রিকমেন্ডেশন) */}

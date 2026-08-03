@@ -17,7 +17,6 @@ export const SignupPage = () => {
     areaDetails: '',
     gender: ''
   });
-  console.log(formData);
   
   const genderOptions = [
           { id: 'Male', label: 'মেল (Male)', icon: UserCheck, color: 'border-blue-500 text-blue-600 bg-blue-50/50 dark:bg-blue-950/20' },
