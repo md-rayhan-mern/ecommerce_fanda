@@ -32,7 +32,7 @@ export const SignupPage = () => {
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signup Data submitted:", formData);
+    //console.log("Signup Data submitted:", formData);
     // এখানে আপনার API কল করতে পারেন
     if(!formData.name.trim()){
       toast.error("অনুগ্রহ করে আপনার পুরো নাম লিখুন!");

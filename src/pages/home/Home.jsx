@@ -18,7 +18,7 @@ const Home = () => {
     (state) => state.allProducts,
   );
   const products = allProducts?.items;
-  console.log(allProducts);
+  //console.log(allProducts);
   //  console.log(allProducts?.items[0]?.offer?.discountPercent);
   //  console.log(allProducts?.items[0]?.offer?.startDate);
 

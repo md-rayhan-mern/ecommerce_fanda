@@ -7,15 +7,15 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await AuthService.login(userData);
-      console.log(response);
+      //console.log(response);
       
       if (response?.success) {
         localStorage.setItem("user", JSON.stringify(response?.data));
       }
       return response;
     } catch (error) {
-      const errorMessage = error?.response?.message;
-      console.log(errorMessage);
+      const errorMessage = error?.response?.data?.message;
+      //console.log(error?.response?.data?.message);
       return rejectWithValue(errorMessage || "Login failed. Please try again.");
     }
   },
@@ -29,7 +29,7 @@ export const registerUser = createAsyncThunk(
       const response = await AuthService.register(userData);
       
       if (response?.success) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response?.data));
       }
       return response;
     } catch (error) {

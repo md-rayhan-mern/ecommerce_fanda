@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router"; // React Router v7 স্ট্যান্ডার্ড
 import { LogIn, Loader2 } from "lucide-react"; // Lucide আইকন
-import {loginUser} from "../auth/authSlice";
 import { toast } from "react-hot-toast";
+import {useDispatch, useSelector} from "react-redux";
+import { loginUser} from "./authSlice.js";
  export const Login = () => {
 
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ import { toast } from "react-hot-toast";
       setInputType("email");
     }
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
       // ১. ইমেইলের জন্য আন্তর্জাতিক স্ট্যান্ডার্ড Regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -57,11 +57,20 @@ import { toast } from "react-hot-toast";
       return ;
   }
   const loginData = {
-    [inputType] : inputType === 'email' ? identifier.toLowerCase() : identifier,
+    identifier : inputType === 'email' ? identifier.toLowerCase() : identifier,
     password: password,
   }
 
-  console.log(loginData);
+  try{
+    const response = await dispatch(loginUser(loginData)).unwrap();
+    //console.log(response?.message);
+    toast.success(response?.message ||'সফলভাবে লগইন হয়েছে।');
+  }catch(error){
+    //console.log(error);
+      toast.error(error || 'লগইন ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।');
+  }
+
+
 }
   // রেডাক্স স্টেট থেকে প্রয়োজনীয় ডাটা নেওয়া
   const { isLoading, user } = useSelector((state) => state.auth);

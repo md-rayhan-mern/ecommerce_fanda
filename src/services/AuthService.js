@@ -4,7 +4,7 @@ const AuthService = {
   login: async (credentials) => {
     try {
       const response = await API.post(
-        import.meta.env.VITE_USER_API_URL_LOGIN,
+        import.meta.env.VITE_GET_USER_LOGIN,
         credentials,
       );
       return response;
