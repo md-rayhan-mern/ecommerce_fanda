@@ -20,7 +20,10 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) =>  response.data, //success //message //token //user{} or //data{}
+  (response) =>  {
+    //console.log(response); // axios all in one response object
+    return response?.data; // return all in one axios response step - 1
+  }, //success //message //token //user{} or //data{}
   (error) => {
     if (error.response && error.response.status === 401) {
       console.error("Unauthorized! Logging out...");

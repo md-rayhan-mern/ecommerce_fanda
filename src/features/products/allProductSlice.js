@@ -17,9 +17,11 @@ export const fetchProducts = createAsyncThunk(
       //console.log(`Product pagination get api = ${url}?page=${1}&limit=${12}`);
 
       // আপনার আসল এপিআই ইউআরএল (API URL) এখানে বসাবেন
-      const response = await Api.get(`${url}?page=${1}&limit=${12}`);
-      return response; // এটি সফল হলে payload হিসেবে যাবে
+      const response = await Api.get(`${url}?page=${page}&limit=${limit}`);
+      //console.log(response);
+      return response; // return get server acject response object step - 2
     } catch (error) {
+      console.log(error);
       return rejectWithValue(
         error.response?.data?.message || "ডেটা লোড করতে সমস্যা হয়েছে",
       );
@@ -32,8 +34,6 @@ export const fetchingSingleProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const url = import.meta.env.VITE_GET_PRODUCT_PG || "";
-      console.log(url);
-
       const response = await Api.get(`${url}/${id}`);
       return response;
     } catch (error) {
@@ -88,12 +88,16 @@ const productSlice = createSlice({
       .addCase(fetchProducts.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.errorMessage = null;
       })
       // যখন এপিআই থেকে ডেটা সফলভাবে চলে আসবে
       .addCase(fetchProducts.fulfilled, (state, action) => {
+        //console.log(action.payload?.items)
         state.isLoading = false;
-        state.allProducts.items = action.payload.data; // এপিআই-এর ডেটা স্টোরে সেভ হলো
-        state.allProducts.meta = action.payload.meta; // এপিআই-এর ডেটা স্টোরে সেভ হলো
+        state.allProducts.items = action?.payload; // এপিআই-এর ডেটা স্টোরে সেভ হলো
+        state.allProducts.meta = action?.payload?.meta; // এপিআই-এর ডেটা স্টোরে সেভ হলো
+        state.error = null;
+        state.errorMessage = null;
       })
       // যখন এপিআই কলে কোনো ভুল বা এরর হবে
       .addCase(fetchProducts.rejected, (state, action) => {
