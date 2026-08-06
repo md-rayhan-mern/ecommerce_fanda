@@ -3,13 +3,13 @@ import QaLogin from "../../../components/products-details/isLogin/Qa"
 import QaLogout from '../../../components/products-details/isLogout/Qa';
 
 
-const ProductQA = ({faq, id, isLogIn}) => {
-
+const ProductQA = ({faq, productId, isLogIn}) => {
+ 
 
 
   return (
     <>
-   {isLogIn ? <QaLogin faq={faq} id={id}/> : <QaLogout/>}
+   {isLogIn ? <QaLogin productId={productId} faq={faq}/> : <QaLogout/>}
      
   </>)
 }

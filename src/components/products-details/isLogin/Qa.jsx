@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import {
   ChevronLeft,
   HelpCircle,
@@ -6,6 +7,8 @@ import {
   Smile,
   Frown,
 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { postFAQ, resetFaqStatus } from "../../../features/products/faqSlice.js";
 
 // মক ডাটা
 const MOCK_QUESTIONS = [
@@ -36,14 +39,15 @@ const MOCK_QUESTIONS = [
   },
 ];
 
-const Qa = ({faq, id}) => {
-  //console.log(faq);
-  //console.log(MOCK_QUESTIONS);
+const Qa = ({productId, faq}) => {
+  const {isLoading,data, success, error } = useSelector((state) => state.faq);
+  console.log(data);
+  
+  const dispatch = useDispatch();
   if(!faq){
     return <div>Loading....</div>
   }
   const [questions, setQuestions] = useState(faq || MOCK_QUESTIONS);
-  console.log(questions);
   
   const [newQuestion, setNewQuestion] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,18 +62,27 @@ const Qa = ({faq, id}) => {
   );
   const totalPages = Math.ceil(questions.length / questionsPerPage);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newQuestion.trim()) return;
 
     const createdQuestion = {
-      product: id,
+      product: productId,
       Q: newQuestion,
     };
     
-    setQuestions([createdQuestion, ...questions]);
-    setNewQuestion("");
-    setCurrentPage(1);
+    try{
+        const response = await dispatch(postFAQ(createdQuestion)).unwrap();
+        toast.success("সফলভাবে জমা হয়েছে!");
+        setQuestions([createdQuestion, ...questions]);
+        setNewQuestion("");
+        setCurrentPage(1);
+    }catch(error){
+    // ব্যর্থ হলে সরাসরি এররটি এখানে ধরা পড়বে
+        console.error("Error Message:", error);
+        toast.error(error?.message || (typeof error === 'string' ? error : "লগইন সেশন শেষ! আবার চেষ্টা করুন।"));
+    }
+  
   };
 
   return (

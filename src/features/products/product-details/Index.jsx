@@ -111,7 +111,7 @@ export default function ProductDetailsPage() {
           {/* <ProductQA /> */}
           <div>
             {/* পূর্বের তৈরি করা ProductQA মডিউল এখানে কল হবে */}
-            <ProductQA isLogIn={isLogIn} faq={sigProduct?.faqs || singleProduct?.faqs } id={id}/>
+            <ProductQA isLogIn={isLogIn} faq={sigProduct?.faqs || singleProduct?.faqs } productId={id}/>
           </div>
 
           {/* ইউ মে অলসো লাইক (রিলিজড প্রোডাক্টস রিকমেন্ডেশন) */}
