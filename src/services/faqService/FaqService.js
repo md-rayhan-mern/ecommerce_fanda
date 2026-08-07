@@ -4,7 +4,7 @@ const FaqService =  {
         postQuestionService : async (faqData) => {
             const url = import.meta.env.VITE_POST_FAQ;
             const response = await Api.post(`${url}`, faqData);
-            console.log(`faq service: ${response} step - 1` );
+            console.log(response);
             
             return response?.data;
         },

@@ -40,8 +40,10 @@ const MOCK_QUESTIONS = [
 ];
 
 const Qa = ({productId, faq}) => {
-  const {isLoading,data, success, error } = useSelector((state) => state.faq);
-  console.log(data);
+  const {isLoading, data, success, error } = useSelector((state) => state?.faq);
+
+  console.log("faq-list: " + data);
+  //  console.log("faq : " + faq);
   
   const dispatch = useDispatch();
   if(!faq){
@@ -64,25 +66,32 @@ const Qa = ({productId, faq}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!newQuestion.trim()) return;
+    //console.log(newQuestion);
+    
+    if (!newQuestion.trim()){
+     return toast.error("Please enter quastion!")
+    } ;
 
     const createdQuestion = {
       product: productId,
       Q: newQuestion,
     };
+
     
     try{
         const response = await dispatch(postFAQ(createdQuestion)).unwrap();
-        toast.success("সফলভাবে জমা হয়েছে!");
-        setQuestions([createdQuestion, ...questions]);
+        //console.log(response?._id);
+         setQuestions([response, ...questions]);
         setNewQuestion("");
         setCurrentPage(1);
+        toast.success("সফলভাবে জমা হয়েছে!");
+      
     }catch(error){
     // ব্যর্থ হলে সরাসরি এররটি এখানে ধরা পড়বে
         console.error("Error Message:", error);
         toast.error(error?.message || (typeof error === 'string' ? error : "লগইন সেশন শেষ! আবার চেষ্টা করুন।"));
     }
-  
+   
   };
 
   return (
@@ -138,14 +147,14 @@ const Qa = ({productId, faq}) => {
                 {/* প্রশ্ন ব্লগ */}
                 <div className="flex items-start gap-3">
                   <span className="bg-[#1095b0] text-white text-[11px] font-bold w-[18px] h-[18px] flex items-center justify-center rounded-[2px] shrink-0 mt-0.5">
-                    Q
+                    {item?.user?.name ? item.user.name[0].toUpperCase() : "U"}
                   </span>
                   <div>
                     <p className="text-gray-900 font-normal leading-tight">
                       {item?.Q}
                     </p>
                     <p className="text-xs text-gray-400 mt-1">
-                      {item?.user} - {item?.createdAt}
+                      {item?.user?.name || "Anonymous User"} - {new Date(item?.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>

@@ -21,11 +21,14 @@ export default function ProductDetailsPage() {
   const {id} = useParams();
   const {allProducts, singleProduct, isLoading, error} = useSelector((state) => state.allProducts);
   const {isLogIn , user} = useSelector((state) => state.auth);
-  console.log(isLogIn);
-  
-  const sigProduct = allProducts?.items?.find((product) => String(product?._id) === String(id));
-  const dispatch = useDispatch();
 
+  
+  
+  const sigProduct = allProducts?.items?.data?.find((product) => String(product?._id) === String(id));
+  const dispatch = useDispatch();
+   //console.log(allProducts?.items?.data[0]?.faqs);
+ //console.log( singleProduct?.faqs);
+ //console.log(singleProduct?.faqs);
   
 
    useEffect(() => {
@@ -34,9 +37,8 @@ export default function ProductDetailsPage() {
     }
    },[dispatch, id, sigProduct])
 
- if(isLoading ) {
-  return <div>Loading.....</div>
- }
+ if(isLoading ) return <div>Loading.....</div>
+ 
  
  if (error) {
   return <div>দুঃখিত, এই প্রোডাক্টটি খুঁজে পাওয়া যায়নি!</div>;

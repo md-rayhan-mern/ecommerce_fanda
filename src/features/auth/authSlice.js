@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AuthService from "../../services/AuthService";
+import getMeService from "../../services/getMeService/GetMeService";
 import { toast } from "react-hot-toast";
 
 export const loginUser = createAsyncThunk(
@@ -33,13 +34,26 @@ export const registerUser = createAsyncThunk(
       }
       return response;
     } catch (error) {
-      const errorMessage = error.response?.data?.message;
       return rejectWithValue(
-        errorMessage || "Registration failed. Please try again.",
+        error.response?.data?.message || "Registration failed. Please try again.",
       );
     }
   },
 );
+
+//Getme User
+
+export const getMeUser = createAsyncThunk("auth/checkSession", async (_ , {rejectWithValue}) => {
+    try{
+      const response = await getMeService();
+      console.log(response);
+      return response;
+    }catch(err){
+      console.log(error);
+      
+      return rejectWithValue(error?.response?.data?.message || "কোনো অ্যাক্টিভ সেশন পাওয়া যায়নি।")
+    }
+})
 
 const savedUser = localStorage.getItem("user");
 const auth = savedUser ? JSON.parse(savedUser) : null;
@@ -110,7 +124,21 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload?.message;
-      });
+      })
+      .addCase(getMeUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMeService.fulfilled, (state, action) => {
+            state.isLoading = false;
+          state.isAuthModelOpen = false;
+          state.user = action?.payload?.data;
+          state.isLogIn = true;
+          state.error = null;
+      })
+      .addCase(getMeService.rejected, (state, action) => {
+         state.isLoading = false;
+        state.error = action.payload?.message;
+      })
   },
 });
 export const {openAuthModel, closeAuthModel, switchAuthModel, logout } = authSlice.actions;

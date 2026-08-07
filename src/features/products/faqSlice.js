@@ -6,11 +6,14 @@ const url = "/product/faq-add"
 
 export const postFAQ = createAsyncThunk("faq/createFaq", async (faqData, {rejectWithValue}) => {
     try{
-        const response = await FaqService.getProductFaqsService(faqData);
-         console.log(`faq thank: ${response} step - 2` );
+        console.log("faq Data : " + faqData);
+        
+        const response = await FaqService.postQuestionService(faqData);
+         console.log(response);
          return response;
     }catch(error){
-        return rejectWithValue(error.response?.data?.message || 'কিছু ভুল হয়েছে!');
+        //console.log(error?.response?.data?.message);
+        return rejectWithValue(error?.response?.data?.message || 'কিছু ভুল হয়েছে!');
     }
 });
 

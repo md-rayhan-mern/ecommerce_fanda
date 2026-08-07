@@ -7,6 +7,7 @@ const ProductQA = ({faq, productId, isLogIn}) => {
  
 
 
+
   return (
     <>
    {isLogIn ? <QaLogin productId={productId} faq={faq}/> : <QaLogout/>}
